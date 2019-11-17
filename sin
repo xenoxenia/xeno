@@ -1,0 +1,32 @@
+#include "iostream"
+#include <windows.h>
+#include "conio.h"
+using namespace std;
+void sinus() {
+	system("cls"); // очищаем 
+	double x;
+	HDC hDC = GetDC(GetConsoleWindow()); // открываем окно
+	HPEN Pen = CreatePen(PS_SOLID, 4, RGB(255, 255, 255));
+	SelectObject(hDC, Pen);
+
+	MoveToEx(hDC, 0, 100, NULL);
+	LineTo(hDC, 300, 100); // ось х
+
+	MoveToEx(hDC, 140, 0, NULL);
+	LineTo(hDC, 140, 200 ); // ось у
+
+	Pen = CreatePen(PS_SOLID, 1, RGB(255, 255, 255)); // ручка для функцц
+	for (x = -10.0; x <= 10.0; x += 0.1) // изменение икса делает ее длиннее/короче
+	{
+		MoveToEx(hDC, 20 * x + 100, -15 * sin(x) + 100, NULL);
+		LineTo(hDC, 20 * x + 100, -15 * sin(x) + 100);
+	}
+
+ _getch();
+ 
+}
+
+int main() {
+
+	sinus();
+}
