@@ -1,0 +1,121 @@
+#include <iostream> 
+using namespace std; 
+
+int main() { 
+setlocale(0, ""); 
+const int p_row = 3; 
+const int p_col = 4; 
+const int v_row = 4; 
+const int v_col = 2; 
+int major_seller = 0, worst_seller = 0, largest_fee_seller = 0, lowest_fee_seller = 0; 
+double total_sum, total_fee, sum_plus_fee; 
+
+double products[p_row][p_col]{ 
+{5, 2, 0, 10}, 
+{3, 5, 2, 5}, 
+{20, 0, 0, 0} 
+}; 
+
+double price_fee[v_row][v_col]{ 
+{1.20, 2.50}, 
+{2.80, 0.40}, 
+{5.00, 1.00}, 
+{2.00, 1.50} 
+}; 
+
+
+double c[p_row][v_col]; 
+for (int i = 0; i < p_row; i++) 
+{ 
+for (int j = 0; j < v_col; j++) 
+{ 
+c[i][j] = 0; 
+for (int k = 0; k < p_col; k++) 
+c[i][j] += products[i][k] * price_fee[k][j]; 
+} 
+} 
+double max_sell = 0.00, min_sell = 100.00, max_fee = 0.00, min_fee = 100.00; 
+
+for (int i = 0; i < p_row; i++) 
+{ 
+for (int j = 0; j < v_col; j++) 
+{ 
+
+total_sum = c[0][0] + c[1][0] + c[2][0]; 
+total_fee = c[0][1] + c[1][1] + c[2][1]; 
+sum_plus_fee = total_fee + total_sum; 
+
+for (int i = 0; i < p_row; i++) 
+{ 
+for (int j = 0; j < 3; j++) 
+{ 
+if (c[i][0] > max_sell) { 
+max_sell = c[i][0]; 
+major_seller = i+1; 
+i++; 
+} 
+else { 
+i++; 
+} 
+} 
+} 
+for (int i = 0; i < p_row; i++) 
+{ 
+for (int j = 0; j < 3; j++) 
+{ 
+if (c[i][0] < min_sell) { 
+min_sell = c[i][0]; 
+worst_seller = i+1; 
+i++; 
+} 
+else { 
+i++; 
+} 
+} 
+} 
+for (int i = 0; i < p_row; i++) 
+{ 
+for (int j = 0; j < 3; j++) 
+{ 
+
+if (c[i][1] > max_fee) { 
+max_fee = c[i][1]; 
+largest_fee_seller = i+1; 
+i++; 
+} 
+else { 
+i++; 
+} 
+} 
+
+for (int i = 0; i < p_row; i++) 
+{ 
+for (int j = 0; j < 3; j++) 
+{ 
+
+
+if (c[i][1] < min_fee) { 
+min_fee = c[i][1]; 
+lowest_fee_seller = i+1; 
+i++; 
+} 
+else { 
+i++; 
+
+} 
+} 
+
+} 
+
+} 
+} 
+cout « "Больше всего денег с продажи выручил Продавец №: " « major_seller « endl; 
+cout « "Меньше всего денег с продажи выручил Продавец №: " « worst_seller « endl; 
+cout « "Наибольшие комиссионные получил Продавец №: " « largest_fee_seller « endl; 
+cout « "Наименьшие комиссионные получил Продавец №: " « lowest_fee_seller « endl; 
+cout « "Общая сумма денег, вырученная за продажу = " « total_sum « endl; 
+cout « "Общая сумма комиссионных = " « total_fee « endl; 
+cout « "Общая сумма денежного оборота = " « sum_plus_fee « endl; 
+return (0); 
+} 
+}
